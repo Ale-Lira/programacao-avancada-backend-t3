@@ -112,6 +112,12 @@ console.log(chars)
 
 // Desafio: desenvolva uma calculadora para as 4 operações básicas usando const com os dados vindo de um formulário.
 
+function calculator(){
+    const formData = new FormData(document.querySelector('form'))
+    const n1 = parseInt(formData.get('n1'))
+    const n2 = parseInt(formData.get('n2'))
+    console.log(n1+n2)
+}
 
 
 
@@ -136,7 +142,7 @@ console.log(product['main color'])
 
 // desestruturando o objeto product para duas variáveis
 // os nomes precisam ser idênticos aos das propriedades do objeto
-let { productName, price } = product
+let { size, price } = product
 console.log(price)
 price = 30.49
 console.log(price)
@@ -145,7 +151,7 @@ console.log(product.price)
 
 const vector = [3,7,2,45,99]
 // desestruturando um vetor
-let [ v1, v2, ...otherVector] = vector
+let [ v1, v2, ...otherVector ] = vector
 console.log(otherVector)
 
 
@@ -168,12 +174,32 @@ const dogObject = JSON.parse(dogJson)
 console.log(dogObject)
 
 // caso haja algum erro na sintaxe, não pode ser considerado um JSON válido
-// const jsonErrado = '{"primeiro":"dado1""segundo":222,"terceiro":"dado3}'
+// const jsonErrado = '{'primeiro':'dado1','segundo':222,'terceiro':'dado3'}'
 // const jsonErradoObject = JSON.parse(jsonErrado)
 
 // Desafio 1: Armazene 5 dados numéricos em um vetor. Em seguida, copie para um objeto com as propriedades n1, n2, n3, n4 e n5. Utilize destructuring para copiar os valores para 5 variáveis. Construa um objeto JSON com os valores das variáveis.
 
+const vetor = [5,7,3,9,10]
+const objetoVetor = {
+    n1:vetor[0],
+    n2:vetor[1],
+    n3:vetor[2],
+    n4:vetor[3],
+    n5:vetor[4]
+}
+const { n1, n2, n3, n4, n5 } = objetoVetor 
+console.log(JSON.stringify({n1,n2,n3,n4,n5}))
+
 // Desafio 2: Desenvolva uma calculadora que armazene em um objeto JSON o resultado das 4 operações básicas. Em outras palavras: crie um objeto calculadora, inicialize cada uma das operações da calculadora (que serão propriedades do objeto) com o resultado do processamento matemático vindo de duas variáveis e converta para um objeto JSON.
+
+const variavel1 = 10, variavel2 = 15
+const objetoCalculadora = {
+    sum: variavel1+variavel2,
+    sub: variavel1-variavel2,
+    mult: variavel1*variavel2,
+    div: variavel1/variavel2
+}
+console.log(JSON.stringify(objetoCalculadora))
 
 
 
@@ -214,7 +240,8 @@ vez é ${outraLista[contador]}.`) //template literais, ou template strings: cont
 // Desafio relâmpago: escreva o que aparece no log abaixo como template literals.
 const var1 = 5
 const var2 = 10
-const sumLiteral = 'Quinze é ${(var1+var2)},\n e não ${(2*var1+var2)}.'
+const sumLiteral = `Quinze é ${(var1+var2)},
+ e não ${(2*var1+var2)}.`
 console.log(sumLiteral)
 
 
@@ -224,7 +251,7 @@ console.log(sumLiteral)
 
 const names = ['Victor','Alexandre','Mariana','Paulo']
 
-// forEach percorre um vetor]
+// forEach percorre um vetor
 // os métodos para vetores precisam de funções anônimas para auxiliarem na resolução das suas funcionalidades
 names.forEach(function(name){
     console.log(name)
@@ -375,12 +402,12 @@ console.log(document.getElementById('titulo'))
 
 // seleciona vários elementos pelo nome da classe e cria um array
 const texts = document.querySelectorAll('.text')
-console.log(texts)
+console.log(typeof(texts))
 
 texts.forEach((data) => console.log(data))
 
 // manipula o conteúdo de um elemento
-texts[0].textContent = 'Estou alterando o primeiro parágrafo.'
+texts[0].textContent = 'Estou alterando o título...'
 
 // insere conteúdo (string que pode descrever um HTML) em um elemento
 texts[0].innerHTML = '<span>Testando uma alteração...</span>'
@@ -395,10 +422,30 @@ texts[2].remove()
 // seleciona um elemento pelo id, armazenando em uma variável
 const button = document.querySelector('#btn')
 // rotina para a execução de alteração no estilo de um elemento a partir do clique
-button.addEventListener('click',()=>(texts[3].style.backgroundColor='orange'))
+button.addEventListener('click',()=>(texts[0].style.backgroundColor='orange'))
 
-// callbacks
+// teste de código assíncrono
 
-// promises
+setTimeout(() => { console.log('esperando 5 segundos para aparecer...') } , 5000)
 
-// async - await
+console.log('quando isso aparece?')
+
+
+
+// Desafio 04: utilize a classe nativa Date para, dentro de uma função, exibir via console uma string com o dia, mês e ano atual. Em outras palavras: crie uma função sem parâmetros, crie um objeto do tipo Date dentro dela e utilize os métodos getHours, getMinutes e getSeconds para montar uma string com a hora, minuto e segundo. Após a função, acrescente o código setTimeout(nomeDaFuncao, 5000) três vezes. Teste com o comando node ./nomedoarquivo.js via terminal. Perguntas retóricas: o que acontece? Qual o motivo disso acontecer? Agora, utilize o método setInterval apenas uma vez no lugar de setTimeout e responda às mesmas perguntas.
+
+
+// Desafio: Crie um documento HTML com apenas um elemento ul, ou seja, uma lista não ordenada. Em seguida, crie um documento em JavaScript, utilize fetch (é uma API nativa do ES6 para requisições HTTP através de Promises) para pegar o conteúdo da página http://jsonplaceholder.typicode.com/users. Em seguida, dentro do fetch, utilize um then para converter o conteúdo da página para um objeto JSON e outro then para mapear o vetor com os dados do objeto JSON, puxando o nome e email de cada dado para a lista no HTML. Trate também o erro, quando houver. Inicie suas pesquisas para resolver o problema em https://www.devmedia.com.br/javascript-fetch/41206. Métodos do objeto document que podem ser úteis: createElement, textContent, innerHTML, appendChild, querySelector.Métodos de vetor que podem ser úteis: forEach, map
+
+fetch('http://jsonplaceholder.typicode.com/users') // Objeto do JavaScript (ES6) que funciona como uma Promise e trabalha requisições e respostas HTTP.
+    .then((resp) => resp.json()) // Recebendo os dados e convertendo para um JSON.
+    .then(function(dado){ // Recebendo os dados em um Array.
+        return dado.map(function(item){ // Conseguimos varrer o array com o método map.
+            const li = document.createElement('li') // Criando um elemento li.
+            li.innerHTML = `Nome: ${item.name} | Sobrenome: ${item.username}` // Inserindo o elemento no HTML.
+            document.getElementById('nomes').appendChild(li) // Inserindo um nó do tipo li na estrutura do DOM.
+        })
+    })
+    .catch((error) => {
+        console.log('Algo não deu certo: ' + error)
+    })
